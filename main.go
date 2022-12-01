@@ -20,11 +20,6 @@ func main() {
 
 	handleError(err)
 
-	//_, err = db.Exec(`INSERT INTO test (id) VALUES(1);`)
-
-	handleError(err)
-
-	// get SQLite version
 	rows, err := db.Query("SELECT id FROM test;")
 
 	handleError(err)
