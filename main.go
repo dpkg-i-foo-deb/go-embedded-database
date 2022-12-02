@@ -1,55 +1,25 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"log"
-	"math/rand"
-	"time"
-
-	_ "github.com/glebarez/go-sqlite"
+	"go-embedded-database/database"
+	"go-embedded-database/util"
+	"os"
 )
 
 func main() {
+	database.InitDatabase()
 
-	var query string
-	var result int
+	database.InitStatements()
 
-	rand.Seed(time.Now().UnixNano())
+	createTable()
 
-	query = fmt.Sprintf("INSERT INTO TEST (id) VALUES (%v)", rand.Int())
-	// connect
-	db, err := sql.Open("sqlite", "datos.db")
+	database.CloseDatabase()
 
-	handleError(err)
-
-	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY);`)
-
-	handleError(err)
-
-	_, err = db.Exec(query)
-
-	handleError(err)
-
-	rows, err := db.Query("SELECT id FROM test;")
-
-	handleError(err)
-
-	defer rows.Close()
-
-	rows.Next()
-
-	err = rows.Scan(&result)
-
-	handleError(err)
-
-	fmt.Println(result)
-
-	db.Close()
+	os.Exit(0)
 }
 
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
+func createTable() {
+	_, err := database.CreateTestTableStmt.Exec()
+
+	util.HandleError(err)
 }
