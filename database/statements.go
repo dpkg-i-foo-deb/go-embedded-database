@@ -8,7 +8,7 @@ import (
 var createTestTableStmt *sql.Stmt
 var insertCatStmt *sql.Stmt
 
-func InitStatements() {
+func initStatements() {
 	createTestTableStmt = PrepareStatement(`CREATE TABLE 
 											IF NOT EXISTS cat 
 												(id INTEGER PRIMARY KEY AUTOINCREMENT,

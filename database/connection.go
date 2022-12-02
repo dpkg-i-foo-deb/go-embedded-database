@@ -10,7 +10,13 @@ import (
 var db *sql.DB
 var err error
 
-func InitDatabase() {
+func init() {
+	initDatabase()
+
+	initStatements()
+}
+
+func initDatabase() {
 	db, err = sql.Open("sqlite", "datos.db")
 
 	util.HandleError(err)

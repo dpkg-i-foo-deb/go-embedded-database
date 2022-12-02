@@ -6,9 +6,6 @@ import (
 )
 
 func main() {
-	database.InitDatabase()
-
-	database.InitStatements()
 
 	database.InsertCat("Michi")
 
